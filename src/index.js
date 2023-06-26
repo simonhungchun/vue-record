@@ -1,23 +1,55 @@
-// import Vue from 'vue/dist/vue.esm';
 import Vue from 'vue';
 import './index.css';
 import template_index from './index.template';
+import axios from 'axios';
+// 页面打开请求自动发送
+// 请求回来的数据还要渲染到页面上 （数据驱动视图）
+// 数据驱动视图变化的条件：数据必须是响应式数据（data）+ 数据必须通过模板语法绑定到模板中
+// vue中this的指向问题：methods中的所有函数（不要箭头函数）的this指向vm（vue的实例）
 const vm = new Vue({
-  // 挂载节点
   el: '#app',
-  // 指令是出现在模板中
-  // 模版语法： 指令
-  // 模版在一定程度上与html片段非常相似 html + 指令 === template
-  // template: '<h1>vuejs,hello!</h1>',
-  // template: '<div id="app123">{{msg}}</div>', // => <div id="app123">hello, vuejs!</div>
-  // 当我不传递template选项时，存不存在template？如果存在，是什么？
-  // 如果不传递template 它就会检查有没有传递el，如果传递，则将el.outHTML获取到并作为template传入
-  // el.outHTML是template默认值
-  // template取值流程：手动传递的模版 > el.outHTML > undefined
   template: template_index,
   data() {
     return {
-      msg: 'hello, vuejs!',
+      menu: [],
+      activeMenuItem: '',
+      playlists: [],
     };
   },
+  methods: {
+    toggleMenu(name) {
+      this.activeMenuItem = name;
+      this.fetchPlaylists(name);
+    },
+    fetchPlaylists(cat) {
+      axios
+        .get(
+          'https://netease-cloud-music-api-five-roan-88.vercel.app/top/playlist',
+          { params: { cat } }
+        )
+        .then((res) => {
+          console.log(res.data.playlists);
+          this.playlists = res.data.playlists;
+        });
+    },
+  },
+  created() {
+    axios
+      .get(
+        'https://netease-cloud-music-api-five-roan-88.vercel.app/playlist/hot'
+      )
+      .then((res) => {
+        this.menu = res.data.tags;
+        return (this.activeMenuItem = this.menu[0].name);
+      })
+      .then((cat) => this.fetchPlaylists(cat))
+      .catch((err) => console.log(err));
+  },
 });
+window.vm = vm;
+console.log(vm);
+// 以_开头的变量名属性名是私有变量或私用属性，不希望其他人去使用
+// 一般情况下：我们在实例化vue传递的配置项 a => $a
+// el => $el
+// data => $data
+// afterInit ==> created
