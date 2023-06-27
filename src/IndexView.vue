@@ -43,14 +43,14 @@ export default {
   data() {
     return {
       menu: [],
-      activeMenuItem: '',
+      activeMenuItem: '华语',
       playlists: [],
+      foo: { a: 1, b: 2, c: 3 },
     };
   },
   methods: {
     toggleMenu(name) {
       this.activeMenuItem = name;
-      this.fetchPlaylists(name);
     },
     fetchPlaylists(cat) {
       axios
@@ -65,16 +65,38 @@ export default {
     },
   },
   created() {
+    window.ins = this;
     axios
       .get(
         'https://netease-cloud-music-api-five-roan-88.vercel.app/playlist/hot'
       )
       .then((res) => {
         this.menu = res.data.tags;
-        return (this.activeMenuItem = this.menu[0].name);
       })
-      .then((cat) => this.fetchPlaylists(cat))
       .catch((err) => console.log(err));
+  },
+  // 监控某个响应数据发生变化之后执行指定的动作（函数）
+  // methods、beforeCreate、created、watch 中的this指向vm
+  /*watch: {
+    activeMenuItem: function (newCat) {
+      this.fetchPlaylists(newCat);
+    },
+  },*/
+  watch: {
+    activeMenuItem: {
+      // 指定数据变化的回调函数
+      handler: function (newCat) {
+        this.fetchPlaylists(newCat);
+      },
+      // 执行配置：立即执行
+      immediate: true,
+    },
+    foo: {
+      handler(newValue) {
+        console.log(newValue);
+      },
+      deep: true,
+    },
   },
 };
 </script>
