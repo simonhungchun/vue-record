@@ -1,5 +1,7 @@
 <template>
-  <h1 class="active">HomeView</h1>
+  <div>
+    <h1 class="active">HomeView</h1>
+  </div>
 </template>
 <script>
 // el配置项只存在根实例中

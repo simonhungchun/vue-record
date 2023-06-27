@@ -1,7 +1,11 @@
 <template>
   <div class="w-screen h-screen">
-    <IndexView v-if="visible" />
-    <HomeView v-else />
+    <a href="#IndexView">IndexView</a><br />
+    <a href="#HomeView">HomeView</a><br />
+    <a href="#MineView">MineView</a><br />
+    <IndexView v-if="visibleView === 'IndexView'" />
+    <HomeView v-else-if="visibleView === 'HomeView'" />
+    <MineView v-else-if="visibleView === 'MineView'" />
   </div>
 </template>
 <script>
@@ -11,7 +15,13 @@ export default {
   components: { IndexView, HomeView },
   data() {
     return {
-      visible: false,
+      visibleView: 'IndexView',
+    };
+  },
+  beforeCreate() {
+    window.onhashchange = () => {
+      this.visibleView = location.hash.replace('#', '');
+      console.log(this.visibleView);
     };
   },
   created() {
@@ -19,3 +29,8 @@ export default {
   },
 };
 </script>
+<style>
+@tailwind base;
+@tailwind utilities;
+@tailwind components;
+</style>
