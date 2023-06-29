@@ -2,8 +2,10 @@ import Vue from 'vue';
 import { Icon } from '@iconify/vue2';
 import App from '@/App.vue';
 import MineView from '@/views/MineView.vue';
+import Drawer from '@/components/Drawer.vue';
 Vue.component('MineView', MineView);
 Vue.component('Icon', Icon);
+Vue.component('Drawer', Drawer);
 new Vue({
   el: '#app',
   components: { App },

@@ -48,6 +48,45 @@
         :count="4"
       />
     </Panel>
+    <!-- 
+      无->有（enter进场动画）
+      .[name]-enter{  }
+      .[name]-enter-to{  }
+      
+      
+    有->无（leave离场动画） 
+    .[name]-leave{  }
+    .[name]-leave-to{  }
+  -->
+    <button @click="visible = !visible">toggle</button>
+    <div class="w-[200px] h-[200px] border-[1px] overflow-hidden relative">
+      <transition name="abc">
+        <div
+          v-if="visible"
+          class="w-[200px] h-[200px] bg-orange-600 absolute top-0 left-0"
+        ></div>
+      </transition>
+      <transition name="abc">
+        <div
+          v-if="!visible"
+          class="w-[200px] h-[200px] bg-teal-400 absolute top-0 left-0"
+        ></div>
+      </transition>
+    </div>
+    <button @click="drawerVisible = !drawerVisible">drawerVisibleToggle</button>
+    <!-- <Drawer :visible="drawerVisible" @自定义事件="(e) => (drawerVisible = e)"> -->
+    <Drawer :visible.sync="drawerVisible" direction="rtl">
+      <!-- <template #header>
+        <div class="flex justify-between items-center">
+          <p>推荐歌单</p>
+          <Icon icon="clarity:times-line" />
+        </div>
+      </template> -->
+      <h1>1234</h1>
+      <h1>1234</h1>
+      <h1>1234</h1>
+      <h1>1234</h1>
+    </Drawer>
   </div>
 </template>
 <script>
@@ -73,6 +112,8 @@ export default {
   },
   data() {
     return {
+      drawerVisible: true,
+      visible: true,
       userSearchKeywords: '',
       searchSuggestList: [],
       defaultSearch: {},
@@ -80,6 +121,9 @@ export default {
     };
   },
   methods: {
+    // fn(e) {
+    //   this.drawerVisible = e;
+    // },
     async searchHandler(keywords) {
       const res = await fetchSearchResult({
         keywords: keywords || this.defaultSearch.realkeyword,
@@ -99,3 +143,23 @@ export default {
   },
 };
 </script>
+<style scoped>
+.abc-enter {
+  transform: translateY(100%) scale(0.7);
+}
+.abc-enter-active {
+  transition: all ease-in-out 1.2s;
+}
+.abc-enter-to {
+  transform: translateY(0) scale(1);
+}
+.abc-leave {
+  transform: translateY(0) scale(1);
+}
+.abc-leave-active {
+  transition: all ease-in-out 1.2s;
+}
+.abc-leave-to {
+  transform: translateY(-100%) scale(0.7);
+}
+</style>
