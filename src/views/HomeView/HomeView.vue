@@ -39,13 +39,15 @@
         {{ item.name }}
       </li>
     </ul>
-    <RecommondPlaylistItem
-      class="abc"
-      v-for="playlist in recommondPlaylist"
-      :key="playlist.id"
-      :source="playlist"
-      :count="4"
-    />
+    <Panel label="推荐歌单">
+      <RecommondPlaylistItem
+        class="abc"
+        v-for="playlist in recommondPlaylist"
+        :key="playlist.id"
+        :source="playlist"
+        :count="4"
+      />
+    </Panel>
   </div>
 </template>
 <script>
@@ -57,8 +59,9 @@ import {
   fetchHomeData,
 } from '@/request';
 import RecommondPlaylistItem from './components/RecommondPlaylistItem.vue';
+import Panel from './components/Panel.vue';
 export default {
-  components: { RecommondPlaylistItem },
+  components: { RecommondPlaylistItem, Panel },
   async created() {
     // 获取首页数据
     const homeData = await fetchHomeData();
