@@ -3,6 +3,8 @@ import { Icon } from '@iconify/vue2';
 import App from '@/App.vue';
 import MineView from '@/views/MineView.vue';
 import Drawer from '@/components/Drawer.vue';
+import Switch from '@/components/Switch.vue';
+Vue.component('v-switch', Switch);
 Vue.component('MineView', MineView);
 Vue.component('Icon', Icon);
 Vue.component('Drawer', Drawer);
