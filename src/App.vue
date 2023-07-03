@@ -1,29 +1,24 @@
 <template>
   <div class="w-screen h-screen">
-    <IndexView v-if="visibleView === 'IndexView'" />
-    <HomeView v-else-if="visibleView === 'HomeView'" />
-    <MineView v-else-if="visibleView === 'MineView'" />
+    <h1>{{ a }}</h1>
+    <component :is="currentComponent" />
+    <!-- component组件的is属性指向谁就渲染谁 -->
   </div>
 </template>
 <script>
-import IndexView from '@/views/IndexView.vue';
-import HomeView from '@/views/HomeView/HomeView.vue';
+import router from '@/router';
 export default {
-  components: { IndexView, HomeView },
+  // 混合
+  mixins: [router],
   data() {
     return {
-      visibleView: 'HomeView',
-    };
-  },
-  beforeCreate() {
-    window.onhashchange = () => {
-      this.visibleView = location.hash.replace('#', '');
-      console.log(this.visibleView);
+      a: 123,
     };
   },
   created() {
     window.vm = this;
   },
+  // ...router,
 };
 </script>
 <style>
