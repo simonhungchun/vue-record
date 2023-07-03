@@ -17,7 +17,8 @@
     "better-scroll": "^2.5.1",
     "eslint-import-resolver-webpack": "^0.13.2",
     "jquery": "^3.7.0",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "vue-router": "^3.3.4"
   },
   "config": {
     "commitizen": {

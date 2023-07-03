@@ -151,6 +151,7 @@ export default {
     },
   },
   async created() {
+    console.log(this.$route.params.id);
     const res = await fetchPlaylistHot().catch((err) => console.log(err));
     this.menu = res.data.tags;
   },
