@@ -1,6 +1,6 @@
 <template>
   <div class="w-screen h-screen overflow-hidden">
-    <h1 @click="increase">Index view{{ count }}</h1>
+    <h1 @click="$store.mutations.increase">Index view{{ count }}</h1>
     <div
       ref="wrapper"
       class="wrapper h-[200px] border-[1px] border-[red] box-border overflow-hidden"
@@ -132,7 +132,7 @@
 <script>
 import { fetchPlaylistHot, fetchPlaylists } from '@/request/index';
 import BScroll from '@better-scroll/core';
-import store from '@/store';
+import { mapState } from '@/vuex';
 export default {
   mounted() {
     // new BScroll('.wrapper');
@@ -141,9 +141,7 @@ export default {
     new BScroll(this.$refs.wrapper);
   },
   computed: {
-    count() {
-      return store.state.count;
-    },
+    ...mapState(['count']),
   },
   data() {
     return {
@@ -153,7 +151,7 @@ export default {
     };
   },
   methods: {
-    increase: store.mutations.increase,
+    // increase: store.mutations.increase,
     toggleMenu(name) {
       this.activeMenuItem = name;
     },
@@ -185,3 +183,4 @@ export default {
   color: red;
 }
 </style>
+@/store/_index
