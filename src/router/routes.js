@@ -5,7 +5,7 @@ export default [
   // 路径重定向
   {
     path: '/',
-    redirect: '/HomeView',
+    redirect: '/Foo',
   },
   {
     path: '/IndexView/:id',
@@ -18,5 +18,10 @@ export default [
   {
     path: '/MineView',
     component: MineView,
+  },
+  {
+    path: '/Foo',
+    // 懒加载组件文件
+    component: () => import('@/views/Foo.vue'),
   },
 ];
