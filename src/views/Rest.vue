@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 ref="h1" @click="fn">{{ count }}</h1>
+    <h1 ref="h1" @click="fn">{{ count | fomate }}</h1>
     <!-- <h1 @click="() => count++">{{ count }}</h1> -->
     <!-- <h1 @click="count++">{{ count }}</h1> -->
     <button @click="changeAbc">changeAbc</button>
@@ -60,6 +60,12 @@ export default {
       abc: 1122,
       arr: [1, 2, 3],
     };
+  },
+  filters: {
+    // 过滤器就是是一个带有返回值的函数
+    fomate(value) {
+      return `$:${value}.00 元`;
+    },
   },
   methods: {
     fn() {
