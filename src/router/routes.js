@@ -28,4 +28,8 @@ export default [
     path: '/Login',
     component: () => import('@/views/Login.vue'),
   },
+  {
+    path: '/Rest',
+    component: () => import(/* webpackChunkName: 'rest' */ '@/views/Rest.vue'),
+  },
 ];
