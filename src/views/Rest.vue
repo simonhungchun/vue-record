@@ -1,71 +1,59 @@
-<template>
+<!-- <template>
   <div>
-    <h1 ref="h1" @click="fn">{{ count | fomate }}</h1>
-    <!-- <h1 @click="() => count++">{{ count }}</h1> -->
-    <!-- <h1 @click="count++">{{ count }}</h1> -->
+    <h1 @click="fn">{{ count }}</h1>
     <button @click="changeAbc">changeAbc</button>
     <ul>
       <li v-for="item in arr" :key="item">{{ item }}</li>
     </ul>
   </div>
-</template>
+</template> -->
 <script>
-// data中的数据变化(同步) => 数据对应的视图更新（异步）
-// import Vue from 'vue';
-function initO() {
-  let _a = 1;
-  return {
-    // 对象a属性的存值器
-    // 拦截了属性的赋值操作
-    set a(v) {
-      _a = Math.pow(v, 2);
-      document.body.innerHTML = `<h1>${this.a}</h1>`;
-      // diff
-    },
-    // 对象a属性的取值器
-    get a() {
-      return _a;
-    },
-    b: 2,
-  };
-}
-function reactive(data = {}) {
-  // ['a', 'b', 'c']
-  Object.keys(data).forEach(function (key) {
-    let _ = {};
-    _[key] = data[key];
-    Object.defineProperty(data, key, {
-      set(v) {
-        _[key] = v;
-        document.body.innerHTML = `<h1>${this[key]}</h1>`;
-      },
-      get() {
-        return _[key];
-      },
-    });
-  });
-  return data;
-}
-
-window.r = reactive({ a: { a: 1, b: 2, c: 3 }, b: 2, c: 3 });
-// r.a = 1;
-// r.a = 1;
-// r.a = 1
-
-window.o = initO();
 export default {
+  // h ===> createElement
+  render: function (h) {
+    // return h('div', {}, [
+    //   h('h1', { on: { click: this.fn } }, [this.count]),
+    //   h('button', { on: { click: this.changeAbc } }, ['changeAbc']),
+    //   h(
+    //     'ul',
+    //     {},
+    //     this.arr.map((item) => h('li', {}, item))
+    //   ),
+    // ]);
+    // jsx 元素 是js的一种新数据类型
+    /*
+    h("h1", {
+    on: {
+      "click": this.fn
+    }
+  }, [count])
+        h("button", {
+    on: {
+      "click": this.changeAbc
+    }
+  }, ["changeAbc"])
+        h("ul", [this.arr.map(item => h("li", {
+    key: item
+  }, [item]))])
+    */
+    return (
+      <div>
+        <h1 onClick={this.fn}>{this.count}</h1>
+        <button onClick={this.changeAbc}>changeAbc</button>
+        <ul>
+          {this.arr.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
+      </div>
+    );
+  },
   data() {
     return {
       count: 123,
       abc: 1122,
       arr: [1, 2, 3],
     };
-  },
-  filters: {
-    // 过滤器就是是一个带有返回值的函数
-    fomate(value) {
-      return `$:${value}.00 元`;
-    },
   },
   methods: {
     fn() {
@@ -82,10 +70,40 @@ export default {
   },
   updated() {
     console.log('updated');
-    // console.log('updated', this.$refs.h1.innerText);
   },
   created() {
     window.rest = this;
   },
 };
+/**
+ 使用jsx编写render函数的配置步骤：
+ 1.安装所需的babel相关模块
+    "@babel/core": "^7.22.8"
+    "@babel/preset-env": "^7.22.7"
+    "@vue/babel-plugin-transform-vue-jsx": "^1.4.0"
+    "babel-loader": "^9.1.2"
+    "@vue/babel-helper-vue-jsx-merge-props": "^1.4.0"
+    "@vue/babel-preset-jsx": "^1.4.0"
+    "@vue/cli-plugin-babel": "^5.0.8"
+  2.在根目录下新建.babelrc（babel.config.js）并写入如下配置：
+    {
+      "presets": [
+        "@vue/cli-plugin-babel/preset",
+        [
+          "@vue/babel-preset-jsx",
+          {
+            "injectH": false
+          }
+        ]
+      ]
+    }
+  3.修改webpack.config.js中的module配置项加入如下配置：
+      {
+        test: /\.js$/,
+        use: {
+          loader: 'babel-loader',
+        },
+      },
+  4.编写正确的jsx代码 并编译
+ */
 </script>

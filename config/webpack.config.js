@@ -14,6 +14,12 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.js$/,
+        use: {
+          loader: 'babel-loader',
+        },
+      },
+      {
         test: /\.template$/,
         use: {
           loader: path.resolve(__dirname, './loaders/template.js'),
