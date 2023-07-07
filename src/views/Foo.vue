@@ -8,6 +8,7 @@
 <script>
 import Dialog from '@/components/Dialog';
 import { mapState, mapMutations } from '@/vuex';
+import { getUserAccount, getUserDetail } from '@/request';
 export default {
   computed: {
     ...mapState(['count', 'msg']),
@@ -23,6 +24,12 @@ export default {
           console.log('点击了取消');
         });
     },
+  },
+  async created() {
+    const res = await getUserAccount();
+    console.log(res);
+    const detail = await getUserDetail(res.data.profile.userId);
+    console.log(detail);
   },
   // created() {
   //   Dialog({ title: '警告', message: '我是提示内容！' });

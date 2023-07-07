@@ -24,4 +24,8 @@ export default [
     // 懒加载组件文件
     component: () => import('@/views/Foo.vue'),
   },
+  {
+    path: '/Login',
+    component: () => import('@/views/Login.vue'),
+  },
 ];
