@@ -1,4 +1,5 @@
 import Vue from 'vue';
+window.V = Vue;
 import { Icon } from '@iconify/vue2';
 import App from '@/App.vue';
 import router from '@/router';
