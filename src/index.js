@@ -5,8 +5,9 @@ import App from '@/App.vue';
 import router from '@/router';
 import store from '@/store';
 import { Switch, Drawer } from '@/components';
+import formateTime from '@/utils/formateTime';
+Vue.use(formateTime);
 Vue.use(Switch).use(Drawer).use(Button).use(Popup).use(Area);
-Vue.component('Icon', Icon);
 
 new Vue({
   el: '#app',

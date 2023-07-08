@@ -9,6 +9,7 @@ export default {
   render() {
     return (
       <Wrapper>
+        <div>{this.$t(1688733891207)}</div>
         <van-popup
           v-model={this.popupVisible}
           position="bottom"

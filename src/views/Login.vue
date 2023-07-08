@@ -1,6 +1,7 @@
 <template>
   <div>
     <h1>扫码登录</h1>
+    <div>{{ $t(1688733891207) }}</div>
     <img :src="qrcode" alt="" />
   </div>
 </template>

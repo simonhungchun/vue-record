@@ -16,6 +16,7 @@
     "@vant/area-data": "^1.4.1",
     "axios": "^1.4.0",
     "better-scroll": "^2.5.1",
+    "dayjs": "^1.11.9",
     "eslint-import-resolver-webpack": "^0.13.2",
     "jquery": "^3.7.0",
     "lodash": "^4.17.21",
