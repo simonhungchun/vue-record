@@ -38,6 +38,6 @@ export default [
   },
   {
     path: '/0708',
-    component: () => import('@/views/Feat-0708.jsx'),
+    component: () => import('@/views/Feat-0708.vue'),
   },
 ];

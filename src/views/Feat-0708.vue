@@ -1,5 +1,10 @@
 <template>
   <div>
+    <Button>
+      <span>我是按钮</span>
+      <span slot="abc">[我是按钮]</span>
+      <span slot="def">{我是按钮}</span>
+    </Button>
     <van-popup
       v-model="popupVisible"
       position="bottom"
@@ -15,8 +20,10 @@
   </div>
 </template>
 <script>
+import Button from '@/components/Button/Button.vue';
 import { areaList } from '@vant/area-data';
 export default {
+  components: { Button },
   data() {
     return {
       areaList: Object.freeze(areaList),
