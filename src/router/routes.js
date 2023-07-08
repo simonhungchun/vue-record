@@ -5,7 +5,7 @@ export default [
   // 路径重定向
   {
     path: '/',
-    redirect: '/JSX',
+    redirect: '/0708',
   },
   {
     path: '/IndexView/:id',
@@ -35,5 +35,9 @@ export default [
   {
     path: '/JSX',
     component: () => import(/* webpackChunkName: 'jsx' */ '@/views/JSX'),
+  },
+  {
+    path: '/0708',
+    component: () => import('@/views/Feat-0708.jsx'),
   },
 ];

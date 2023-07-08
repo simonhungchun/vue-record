@@ -1,27 +1,16 @@
 import Vue from 'vue';
-window.V = Vue;
+import { Button, Popup, Area } from 'vant';
 import { Icon } from '@iconify/vue2';
 import App from '@/App.vue';
 import router from '@/router';
 import store from '@/store';
-import Drawer from '@/components/Drawer';
-import Switch from '@/components/Switch';
-Vue.use(Switch);
+import { Switch, Drawer } from '@/components';
+Vue.use(Switch).use(Drawer).use(Button).use(Popup).use(Area);
 Vue.component('Icon', Icon);
-Vue.use(Drawer);
 
-const app = new Vue({
+new Vue({
   el: '#app',
   router,
   store,
-  // components: { App },
-  // template: '<App/>',
-  // render(h) {
-  //   return h(App);
-  // },
   render: (h) => h(App),
-  created() {
-    console.log(this.$store);
-  },
 });
-console.log(app);
