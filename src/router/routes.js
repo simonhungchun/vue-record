@@ -5,7 +5,7 @@ export default [
   // 路径重定向
   {
     path: '/',
-    redirect: '/Foo',
+    redirect: '/JSX',
   },
   {
     path: '/IndexView/:id',
@@ -31,5 +31,9 @@ export default [
   {
     path: '/Rest',
     component: () => import(/* webpackChunkName: 'rest' */ '@/views/Rest.vue'),
+  },
+  {
+    path: '/JSX',
+    component: () => import(/* webpackChunkName: 'jsx' */ '@/views/JSX'),
   },
 ];

@@ -19,6 +19,7 @@
     "jquery": "^3.7.0",
     "lodash": "^4.17.21",
     "storejs": "^2.0.5",
+    "styled-components-vue": "^2.0.0",
     "vue-router": "^3.3.4"
   },
   "config": {
