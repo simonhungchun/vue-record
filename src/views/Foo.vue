@@ -36,4 +36,4 @@ export default {
   // },
 };
 </script>
-@/store/_index
+@/store/_index @/vuex/_index @/vuex/__index

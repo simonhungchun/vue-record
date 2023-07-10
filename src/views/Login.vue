@@ -3,10 +3,14 @@
     <h1>扫码登录</h1>
     <div>{{ $t(1688733891207) }}</div>
     <img :src="qrcode" alt="" />
+    <h1 class="bg-red-500">{{ $store.state.count }}</h1>
+    <h1 class="bg-red-500">{{ count }}</h1>
+    <h1 class="bg-orange-500">{{ list }}</h1>
   </div>
 </template>
 <script>
 import { getQrKey, getQrInfo, checkQrStatus } from '@/request';
+import { mapState } from '@/vuex/__index';
 import store from 'storejs';
 export default {
   name: 'Login',
@@ -15,6 +19,18 @@ export default {
       qrcode: '',
     };
   },
+  computed: mapState(['count', 'list']),
+  // computed: {
+  //   count() {
+  //     return this.$store.state.count;
+  //   },
+  //   list() {
+  //     return this.$store.state.list;
+  //   },
+  //   // [key]() {
+  //   //   return this.$store.state[key];
+  //   // }
+  // },
   methods: {
     pollingCheck(key, interval = 1000) {
       const timer = setInterval(async () => {

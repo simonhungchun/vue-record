@@ -1,4 +1,3 @@
-// 数据仓库对象（vue插件）
 let Vue = null;
 let store = null;
 export const mapMutations = (mutationKeys = []) => {
@@ -8,13 +7,6 @@ export const mapMutations = (mutationKeys = []) => {
   }, {});
 };
 export const mapState = (stateKeys = []) => {
-  // let o = {};
-  // for (let key of stateKeys) {
-  //   o[key] = function () {
-  //     return store.state[key];
-  //   };
-  // }
-  // return o;
   return stateKeys.reduce((prev, key) => {
     prev[key] = function () {
       return store.state[key];
