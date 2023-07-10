@@ -3,14 +3,16 @@
     <h1>扫码登录</h1>
     <div>{{ $t(1688733891207) }}</div>
     <img :src="qrcode" alt="" />
-    <h1 class="bg-red-500">{{ $store.state.count }}</h1>
-    <h1 class="bg-red-500">{{ count }}</h1>
+    <h1 class="bg-red-500" @click="abc">{{ $store.state.count }}</h1>
+    <h1 class="bg-red-500" @click="$store.mutations.decrease">{{ count }}</h1>
     <h1 class="bg-orange-500">{{ list }}</h1>
+    <h1>a:{{ a }}</h1>
+    <h1>a1:{{ a1 }}</h1>
   </div>
 </template>
 <script>
 import { getQrKey, getQrInfo, checkQrStatus } from '@/request';
-import { mapState } from '@/vuex/__index';
+import { mapState, mapMutations } from '@/vuex/__index';
 import store from 'storejs';
 export default {
   name: 'Login',
@@ -19,7 +21,12 @@ export default {
       qrcode: '',
     };
   },
-  computed: mapState(['count', 'list']),
+  computed: {
+    ...mapState(['count', 'list', 'a:a1']),
+    a() {
+      return 3;
+    },
+  },
   // computed: {
   //   count() {
   //     return this.$store.state.count;
@@ -32,6 +39,7 @@ export default {
   //   // }
   // },
   methods: {
+    ...mapMutations(['decrease:abc']),
     pollingCheck(key, interval = 1000) {
       const timer = setInterval(async () => {
         const res = await checkQrStatus(key);

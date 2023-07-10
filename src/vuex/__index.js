@@ -32,22 +32,55 @@ export const mapState = (keys) => {
   if (!Array.isArray(keys)) return;
   if (!keys.every((key) => typeof key === 'string')) return;
   return keys.reduce((prev, key) => {
-    prev[key] = function () {
-      return store.state[key];
+    const _keys = key.split(':');
+    prev[_keys[1] ?? _keys[0]] = function () {
+      return store.state[_keys[0]];
     };
     return prev;
   }, {});
 };
+export const mapMutations = (keys) => {
+  if (!Array.isArray(keys)) return;
+  if (!keys.every((key) => typeof key === 'string')) return;
+  return keys.reduce((prev, key) => {
+    const _keys = key.split(':');
+    prev[_keys[1] ?? _keys[0]] = store.mutations[_keys[0]];
+    return prev;
+  }, {});
+};
+const getType = (data) => Object.prototype.toString.call(data).slice(8, -1);
 export default {
   Store: class {
     constructor(options = {}) {
       this._options = options;
+      if (getType(this._options.state) !== 'Object') return;
+      this.state = Vue.observable(this._options.state);
+      if (getType(this._options.mutations) !== 'Object') return;
       if (
-        Object.prototype.toString.call(this._options.state).slice(8, -1) !==
-        'Object'
+        !Object.values(this._options.mutations).every(
+          (item) => typeof item === 'function'
+        )
       )
         return;
-      this.state = Vue.observable(this._options.state);
+
+      /*
+      {
+        _decrease(state) {
+          state.count--;
+        },
+        decrease() {
+          _decrease(store.state)
+        }
+      }
+      */
+      // this.mutations = this._options.mutations;
+      this.mutations = Object.entries(this._options.mutations).reduce(
+        (prev, [key, fn]) => {
+          prev[key] = () => fn(store.state);
+          return prev;
+        },
+        {}
+      );
     }
   },
   install(_Vue) {
@@ -62,3 +95,15 @@ export default {
     });
   },
 };
+
+// const state = { a: 'abc' };
+
+// function fn(state) {
+//   console.log(state.a);
+// }
+
+// function $fn() {
+//   fn(state);
+// }
+
+// $fn(); // abc

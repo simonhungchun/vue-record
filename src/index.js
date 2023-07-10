@@ -14,6 +14,13 @@ const store = new Vuex.Store({
   state: {
     count: 123,
     list: [123],
+    a: 45,
+  },
+  mutations: {
+    decrease(state) {
+      // console.log(state);
+      state.count--;
+    },
   },
 });
 // Vue.mixin({
